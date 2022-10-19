@@ -1,0 +1,78 @@
+.infoLogin{
+    display: flex;
+    color: #094e6f;
+    margin-right: 1vw;
+    align-items: center;
+    justify-content: flex-end;
+}
+.infoLogin label{
+    color: #094e6f;
+}
+
+.headerColab{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2vh;
+}
+
+.headerColab .colabText span{
+    color: #094e6f;
+    font-weight: 800;
+
+}
+.headerColab .colabText{
+    color: #094e6f;
+    font-weight: 600;
+    font-size: large;
+}
+
+.headerColab svg{
+    font-size: 80px;
+    color: #094e6f;
+}
+
+
+.btn:hover{
+    background-color: #22607d !important;
+}
+.btn{
+    background-color: #094e6f;
+}
+
+.teste{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.card{
+    max-width: 900px;
+    padding: 20px 5px; 
+    margin: 0 auto;
+    align-items: center;
+    text-align: center
+}
+
+.cardMedia{
+    width: 200px;
+    height: 200px;
+}
+
+.cardMax{
+    width: 200px;
+    height: 200px;
+}
+
+.colabText{
+    color: #094e6f;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 10vh;
+
+}
+
+.colabText svg{
+    font-size: 80px;
+}
