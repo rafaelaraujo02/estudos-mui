@@ -1,8 +1,7 @@
-.example:hover{
-    background-color: #22607d !important;
-}
-.example{
-    background-color: #094e6f;
+.mainGrid{
+    margin: auto;
+    margin-top: 20vh;
+    width: 450px;
 }
 
 .logo{
@@ -11,9 +10,13 @@
 }
 
 .card{
-    max-width: 900px;
+    max-width: 450px;
     padding: 20px 5px; 
     margin: 0 auto;
     align-items: center;
-    text-align: center
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    
 }

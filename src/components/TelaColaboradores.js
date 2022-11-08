@@ -1,12 +1,14 @@
 import * as React from 'react';
+import { useState } from 'react';
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 
 import styles from './TelaColaboradores.module.css';
-
 import UserImage from './UserImage';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 //HEADER COLABORADORES
 import GroupIcon from '@mui/icons-material/Group';
@@ -20,12 +22,25 @@ function CustomMaskField({ inputRef, ...otherProps }) {
   return <MaskField ref={inputRef} mask="(__) _ ____-____" replacement="_" {...otherProps} />;
 }
 
+function cadastrarColaborador(e){
+  e.preventDefault();
+  alert('Cadastro Realizado com Sucesso');
+}
+
+
 function MediaCard() {
 
-  const teste = "Estado Civil";
-  const [age, setAge] = React.useState('');
+  const [id, setId] = useState();
+  const [nome, setNome] = useState();
+  const [email, setEmail] = useState();
+  const [funcao, setFuncao] = useState();
+  const [celular, setCelular] = useState();
+  const [estadoCivil, setEstadoCivil] = useState();
 
   
+  const handleChange = (event) => {
+    setEstadoCivil(event.target.value);
+  };
 
   return (
     <div>
@@ -34,10 +49,10 @@ function MediaCard() {
         <Card className={styles.card}>
           
           {/* CHAMAR O COMPONENTE HEADER COLABORADORES */}
-          <HeaderCadastroColaboradores/>
+          <HeaderCadastroColaboradores labelNome="Cadastrar"/>
           <CardContent>
         
-            <form>
+            <form onSubmit={(e) => {e.preventDefault()}}>
               <Grid container spacing={1}>
 
                 {/* IMAGE SEARCH */}
@@ -53,6 +68,7 @@ function MediaCard() {
                     InputProps={{ disableUnderline: true }}
                     fullWidth required
                     style={{paddingBottom: 6}} 
+                    onChange={(e) => {setNome(e.target.value)} }
                     />
 
                     {/* E-MAIL */}
@@ -64,6 +80,7 @@ function MediaCard() {
                         InputProps={{ disableUnderline: true }}
                         fullWidth required 
                         style={{paddingBottom: 6}} 
+                        onChange={(e) => {setEmail(e.target.value)} }
                       />
                     </Grid>
 
@@ -94,13 +111,22 @@ function MediaCard() {
 
                 {/* ESTADO CIVIL - SELECT - PRECISA ALTERAR */}
                 <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="Estado Civil" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true }}
-                    fullWidth 
-                  />
+                  <FormControl variant="filled" sx={{ minWidth: 280 }}>
+                    <InputLabel id="demo-simple-select-filled-label" sx={{color: '#094e6f', fontWeight: 600}}>Estado Civil</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
+                      value={estadoCivil}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={"solteiro"}>Solteiro(a)</MenuItem>
+                      <MenuItem value={"casado"}>Casado(a)</MenuItem>
+                      <MenuItem value={"viúvo"}>Viúvo(a)</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
 
                 {/* PROFISSÃO */}
@@ -121,6 +147,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth required 
+                    onChange={(e) => {setFuncao(e.target.value)} }
                   />
                 </Grid>
                 {/* NUMERO DA TAG */}
@@ -231,6 +258,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setCelular(e.target.value)} }
                   />
                 </Grid>
                 
@@ -241,6 +269,7 @@ function MediaCard() {
                     type="submit" 
                     variant="contained"  
                     fullWidth
+                    onSubmit={cadastrarColaborador}
                     >Cadastrar
                   </Button>
                 </Grid>

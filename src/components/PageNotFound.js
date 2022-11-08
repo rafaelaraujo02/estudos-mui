@@ -1,9 +1,11 @@
+import { Container } from "@mui/material";
+import errorImage from '../assets/404.jpg'
+
 export default function PageNotFound(){
     return(
-        <div>
-            <h1>
-                Página não Encontrada
-            </h1>
-        </div>
+        <Container style={{textAlign: "center"}}>
+            <h1>Página Não Encontrada</h1>
+            <img src={errorImage} width={400} ></img>
+        </Container>
     )
 }

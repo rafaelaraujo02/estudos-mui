@@ -5,23 +5,32 @@ import GroupIcon from '@mui/icons-material/Group';
 
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import styles from './TelaColaboradores.module.css';
+import { Link } from 'react-router-dom';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const tempName = "Rafael";
-const typeHeader = "Listar";
-
+//767px smartphone
+//400px = 25%
+//767px = 48%
+//
 function HeaderCadastroColaboradores(props){
+  const matches = useMediaQuery('(min-width:767px)');
 
     return(
-        <div style={{width: `calc(99% - 20%)`, marginLeft: "25%", marginTop: 15}}>
+        <div style={{width: `calc(99% - 25%)`, marginLeft: "25%", marginTop: 15}}>
             {/* INFO LOGIN */}
           <div className={styles.infoLogin}>
             <Typography sx={{fontWeight: "bold"}}>
               <span>Logado como {tempName}</span>
             </Typography>
             {/* <MeetingRoomOutlinedIcon onClick={teste} /> */} 
-            <IconButton component="label">
-              <MeetingRoomOutlinedIcon />
-            </IconButton>
+              <Link to="/entrar">
+                <IconButton component="label">
+                    <MeetingRoomOutlinedIcon/>
+                </IconButton>
+              </Link>
           </div>
           {/* FIM INFO LOGIN */}
 
@@ -29,7 +38,7 @@ function HeaderCadastroColaboradores(props){
           <div className={styles.headerColab}>
             <GroupIcon/> 
             <Typography className={styles.colabText}>
-              <span>COLABORADORES </span>/ {typeHeader}
+              <span>COLABORADORES /</span> {props.nome}
             </Typography>
           </div>
           {/* FIM HEADER COLABORADORES */}
@@ -37,4 +46,4 @@ function HeaderCadastroColaboradores(props){
     )
 }
 
-export default HeaderCadastroColaboradores;
+export default HeaderCadastroColaboradores; 

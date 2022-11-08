@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Form.module.css';
 import { Grid, TextField, Button, Card, CardContent } from "@mui/material";
 import logo from '../assets/logo_nutes.jpg';
 
+
 function Form(){
 
+  function validarForm(e){
+    e.preventDefault();
+    alert('validar form')
+  }
+
     return(
-        <div className="App"> 
-          <Grid sx={{ margin: 20, marginLeft: 45, width: 450}}>
+        <div className="app"> 
+          <Grid className={styles.mainGrid}>
+
             <Card className={styles.card}>
               <CardContent>
                 <img src={logo} className={styles.logo}/>
                 
                 <form>
                   <Grid container spacing={1}>
-                    <Grid xs={12} item>
-                      <TextField 
+                    <Grid xs={12} item={true}>
+                      <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                         label="Usuário" 
                         variant="filled" 
                         InputProps={{ disableUnderline: true }}
@@ -23,8 +30,8 @@ function Form(){
                       />
                     </Grid>
                     
-                    <Grid item xs={12}>
-                      <TextField 
+                    <Grid item={true} xs={12} >
+                      <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                         type="password" 
                         label="Senha" 
                         variant="filled" 
@@ -33,12 +40,13 @@ function Form(){
                       />
                     </Grid>
                     
-                    <Grid item xs={12}>
+                    <Grid item={true} xs={12}>
                       <Button 
-                        className={styles.example}
+                        sx={{backgroundColor: "#094e6f"}}
                         type="submit" 
                         variant="contained"  
                         fullWidth
+                        onClick={(e) => {validarForm(e)}}
                         >Submit
                       </Button>
                     </Grid>

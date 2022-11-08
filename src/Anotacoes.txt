@@ -1,0 +1,3 @@
+Axios para conexão com o backend
+React form
+Imagem do usuário

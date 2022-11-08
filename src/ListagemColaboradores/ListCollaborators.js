@@ -49,7 +49,8 @@ function Alunos(){
 
         return(
           <TableContainer sx={{width: `calc(100% - 25%)`, minWidth: 900, margin: "25%", border: "none", marginTop: 5}}>
-              {/* MARGIN DEFAULT: 25% */}
+              {/* MARGIN DEFAULT: 25% 
+              */}
               <SearchCollaborators />
               {
                 

@@ -3,22 +3,13 @@ import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 //ICONS
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MenuIcon from '@mui/icons-material/Menu';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import IconButton from '@mui/material/IconButton';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import PermMediaOutlinedIcon from '@mui/icons-material/PermMediaOutlined';
@@ -27,9 +18,13 @@ import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
 import logo from '../assets/cropped-logo-Nutes-Final.jpg'
 import logoMenor from '../assets/logo_nutes.jpg'
 import HeaderCadastroColaboradores from '../components/HeaderCadastroColaboradores';
+import { Link } from 'react-router-dom';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 //TAMANHO DO SIDEBAR
-const drawerWidth = "24%";
+const drawerWidth = "380px";
 
 //SIDEBAR ABERTO (NÃO INCLUI A ÁREA DOS ELEMENTOS COR QUE É PRA FICAR: #094e6f)
 //AO ABRIR, SOBREPOR A LISTA E ESCURECER UM POUCO 
@@ -109,6 +104,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
+  const matches = useMediaQuery('(min-width:767px)');
   const theme = useTheme();
   //DEFINE SE O SIDEBAR COMEÇA ABERTO OU FECHADO
   const [open, setOpen] = React.useState(false);
@@ -120,12 +116,12 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
 
   return (
 
     
     <Box sx={{ display: 'flex' }}>
-
       
 
       <CssBaseline />
@@ -133,6 +129,7 @@ export default function MiniDrawer() {
       <Drawer variant="permanent" open={open} onMouseOver={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
         <DrawerHeader>
           <img 
+            
               src={open ? logo : logoMenor} 
               style={{height: open ? "90px" : "40px", paddingTop: "2px", paddingRight: "10px", transition: ".7s"}}
               alt="Logo Nutes"
@@ -147,6 +144,8 @@ export default function MiniDrawer() {
         <List>
           {['Acesso', 'Colaboradores', 'Patrimônio', 'Mobile'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <Link to={`/${text}`} style={{ textDecoration: 'none' }}>
+
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -154,7 +153,6 @@ export default function MiniDrawer() {
                   px: 3.5,
                   backgroundColor: "white",
                   color: "#094e6f",
-  
                 }}
               >
                 <ListItemIcon
@@ -162,7 +160,7 @@ export default function MiniDrawer() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color: "#094e6f"
+                    color: "#094e6f",
                   }}
                 >
                   {index === 0 && <LockOpenIcon />}
@@ -172,6 +170,7 @@ export default function MiniDrawer() {
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
