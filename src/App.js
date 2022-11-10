@@ -32,7 +32,7 @@ import EstudoHooks from './Hooks/EstudoHooks';
 
 function App() {
 
-  /* 
+/* 
 git status
 git add .
 git commit -m "message"
