@@ -14,37 +14,41 @@ function createData({nome, funcao, celular, email, acoes}) {
     return { nome, funcao, celular, email, acoes };
 }
 
-//CONSTANTE TEMPORÁRIA PARA POPULAR TABELA
-const rows = [
-    createData( {
-        nome:'Adalberto Francisco Monteiro Neto', 
-        funcao:'Funcionário', 
-        celular:'83 99999-9999', 
-        email:'adalberto@gmail.com',
-        
-        }   
-    ),
-    createData( {
-        nome:'Maria josé ', 
-        funcao:'Funcionário', 
-        celular:'83 99999-9999', 
-        email:'maria@gmail.com',
-        
-        }   
-    ),
-    createData( {
-        nome:'Antonio silva pereira', 
-        funcao:'Funcionário', 
-        celular:'83 99999-9999', 
-        email:'antonio@gmail.com',
-        
-        }   
-    ),
-    
-];
 
 
 function Alunos(){
+    //CONSTANTE TEMPORÁRIA PARA POPULAR TABELA
+    const [rows, setRows] = useState([
+        createData( {
+            nome:'Adalberto Francisco Monteiro Neto', 
+            funcao:'Funcionário', 
+            celular:'83 99999-9999', 
+            email:'adalberto@gmail.com',
+            
+            }   
+        ),
+        createData( {
+            nome:'Maria josé rodrigues', 
+            funcao:'Funcionário', 
+            celular:'83 99999-9999', 
+            email:'maria@gmail.com',
+            
+            }   
+        ),
+        createData( {
+            nome:'Antonio silva pereira', 
+            funcao:'Funcionário', 
+            celular:'83 99999-9999', 
+            email:'antonio@gmail.com',
+            
+            }   
+        ),
+        
+    ]);
+    //Função responsável por recuperar os dados do localStorage e setar em uma const rows
+    function recuperarDados(){
+        //localStorage.getItem();
+    }
 
 
         return(

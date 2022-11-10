@@ -1,3 +1,11 @@
+.app{
+    background-color: lightgrey;
+}
+
+.mainGrid{
+    padding-left: 15%;
+}
+
 .infoLogin{
     display: flex;
     color: #094e6f;
@@ -37,7 +45,7 @@
     background-color: #22607d !important;
 }
 .btn{
-    background-color: #094e6f;
+    background-color: #094e6f !important;
 }
 
 .teste{
@@ -48,7 +56,7 @@
 }
 
 .card{
-    max-width: 980px;
+    max-width: 988px;
     padding: 20px 5px; 
     margin: 0 auto;
     align-items: center;
@@ -69,7 +77,6 @@
     color: #094e6f;
     font-weight: 600;
     font-size: 24px;
-    margin: 10vh;
 
 }
 

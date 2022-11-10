@@ -17,7 +17,9 @@ function handlePrint(){
 
 function handleDelete(e) {
     //ESSA FUNÇÃO PRECISA ACESSAR ROWS E APAGAR A LINHA CORRESPONDENTE AO USUÁRIO
+    e.preventDefault();
     alert('delete')
+    
 } 
 
 function ButtonList(props){
@@ -38,7 +40,7 @@ function ButtonList(props){
                 
                 <Button size="small" style={{minWidth: "40px", marginLeft: "4px"}} 
                         title="Excluir" variant="contained" 
-                        onClick={ () => { } }>
+                        onClick={ (e) => {handleDelete(e) } }>
                     <CloseIcon/>
                 </Button>
             </Box>

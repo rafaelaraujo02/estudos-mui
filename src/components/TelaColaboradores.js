@@ -1,64 +1,178 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
+//ROUTER
+import { Link } from 'react-router-dom';
+
+//COMPONENTS
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 
+//ARQUIVO DE ESTILOS
 import styles from './TelaColaboradores.module.css';
-import UserImage from './UserImage';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
-//HEADER COLABORADORES
-import GroupIcon from '@mui/icons-material/Group';
+//ICONS
+import CameraComponent from './CameraComponent';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
+import GroupIcon from '@mui/icons-material/Group';
 
-//MASCARA
+//MASCARAS PARA TELEFONE
 import { MaskField } from 'react-mask-field';
-import HeaderCadastroColaboradores from './HeaderCadastroColaboradores';
 
-function CustomMaskField({ inputRef, ...otherProps }) {
+//FUNÇÃO PARA A MASCARA DE TELEFONE
+function CustomMaskFieldTelefone({ inputRef, ...otherProps }) {
   return <MaskField ref={inputRef} mask="(__) _ ____-____" replacement="_" {...otherProps} />;
 }
-
-function cadastrarColaborador(e){
-  e.preventDefault();
-  alert('Cadastro Realizado com Sucesso');
+function CustomMaskFieldRg({ inputRef, ...otherProps }) {
+  return <MaskField ref={inputRef} mask="_.___.___" replacement="_" {...otherProps} />;
+}
+function CustomMaskFieldCpf({ inputRef, ...otherProps }) {
+  return <MaskField ref={inputRef} mask="___.___.___-__" replacement="_" {...otherProps} />;
 }
 
 
 function MediaCard() {
-
-  const [id, setId] = useState();
-  const [nome, setNome] = useState();
-  const [email, setEmail] = useState();
-  const [funcao, setFuncao] = useState();
-  const [celular, setCelular] = useState();
-  const [estadoCivil, setEstadoCivil] = useState();
-
   
-  const handleChange = (event) => {
+  const userTemp = "Rafael";
+  const [user, setUser] = useState('');
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [rg, setRg] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [estadoCivil, setEstadoCivil] = useState('');
+  const [profissao, setProfissao] = useState('');
+  const [funcao, setFuncao] = useState('');
+  const [tag, setTag] = useState('');
+  const [login, setLogin] = useState('');
+  const [imei, setImei] = useState('');
+  const [cep, setCep] = useState('');
+  const [endereco, setEndereco] = useState('');
+  const [uf, setUf] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [celular, setCelular] = useState('');
+
+  const handleChangeEstadoCivil = (event) => {
+    alert(event.target.value);
     setEstadoCivil(event.target.value);
   };
 
-  return (
-    <div>
+  const handleChange = (e, string) => {
 
-      <Grid sx={{ margin: 20}}>
+    if(string === 'funcao')
+      setFuncao(e.target.value);
+    if(string === 'uf')
+      setUf(e.target.value);
+    if(string === 'estadoCivil')
+      setEstadoCivil(e.target.value);
+  }
+
+  function verificaCampos(){
+    if(nome === '')
+      alert('Campo "Nome" é obrigatório');
+    else if(email === '')
+      alert('Campo "E-mail" é obrigatório');
+    else if(rg === '')
+      alert('Campo "RG" é obrigatório');
+    else if(cpf === '')
+      alert('Campo "CPF" é obrigatório');
+    else if(profissao === '')
+      alert('Campo "Profissão" é obrigatório');
+    else if(funcao === '')
+      alert('Campo "Função" é obrigatório');
+    else
+      return true;
+    return false;
+  }
+
+  function cadastrar(e){
+    e.preventDefault();
+    
+
+    if(true){
+      var usuario = {
+        "nome": nome,
+        "email": email,
+        "rg": rg,
+        "cpf": cpf,
+        "profissao": profissao,
+        "funcao": funcao,
+        "estadoCivil": estadoCivil,
+        "tag": tag,
+        "login": login,
+        "imei": imei,
+        "cep": cep,
+        "endereco": endereco,
+        "uf": uf,
+        "bairro": bairro,
+        "cidade": cidade,
+        "telefone": telefone,
+        "celular": celular,
+      };
+      
+      const verificaUsuario = JSON.parse(localStorage.getItem('usuario')) || [];
+      
+      if(verificaUsuario.cpf === cpf){
+        alert('Usuário já cadastrado')
+      }else{
+        localStorage.setItem(usuario.nome, JSON.stringify(usuario));
+        alert("Cadastro Realizado");
+      }
+      
+    }else{
+      alert('Campo "Nome" é obrigatório');
+    }
+    
+  }
+
+
+  return (
+    <div className={styles.app}>
+
+      <Grid className={styles.mainGrid}>
         <Card className={styles.card}>
-          
-          {/* CHAMAR O COMPONENTE HEADER COLABORADORES */}
-          <HeaderCadastroColaboradores labelNome="Cadastrar"/>
+
+          {/* INFO LOGIN */}
+          <div className={styles.infoLogin}>
+            <Typography sx={{fontWeight: "bold"}}>
+              <span>Logado como {userTemp}</span>
+            </Typography>
+            {/* <MeetingRoomOutlinedIcon onClick={teste} /> */} 
+            <Link to="/">
+              <IconButton component="label">
+                <MeetingRoomOutlinedIcon />
+              </IconButton>
+            </Link>
+          </div>
+          {/* FIM INFO LOGIN */}
+
+          {/* Header COLABORADORES */}
+          <div className={styles.headerColab}>
+            <GroupIcon /> 
+            <Typography className={styles.colabText}>
+              <span>COLABORADORES </span>/ Cadastrar
+            </Typography>
+          </div>
+          {/* FIM HEADER COLABORADORES */}
+
           <CardContent>
         
-            <form onSubmit={(e) => {e.preventDefault()}}>
+            <form>
               <Grid container spacing={1}>
 
-                {/* IMAGE SEARCH */}
+                {/* IMAGE SEARCH 
+                  <IconButton component="label">
+                  <input hidden accept="image/*" type="file" />
+                  <CameraComponent />
+                </IconButton>
+                */}
                 <Grid xs={4} item>
-                  <UserImage />
+                  <CameraComponent/>
                 </Grid>
+                
 
                 {/* NOME */}
                 <Grid xs={8} item className={styles.teste}>
@@ -68,7 +182,7 @@ function MediaCard() {
                     InputProps={{ disableUnderline: true }}
                     fullWidth required
                     style={{paddingBottom: 6}} 
-                    onChange={(e) => {setNome(e.target.value)} }
+                    onChange={(e) => {setNome(e.target.value)}}
                     />
 
                     {/* E-MAIL */}
@@ -78,9 +192,9 @@ function MediaCard() {
                         label="E-mail" 
                         variant="filled" 
                         InputProps={{ disableUnderline: true }}
+                        onChange={(e) => {setEmail(e.target.value)}}
+                        style={{paddingBottom: 6}}
                         fullWidth required 
-                        style={{paddingBottom: 6}} 
-                        onChange={(e) => {setEmail(e.target.value)} }
                       />
                     </Grid>
 
@@ -91,8 +205,9 @@ function MediaCard() {
                         type="text" 
                         label="RG" 
                         variant="filled" 
-                        InputProps={{ disableUnderline: true }}
+                        InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldRg }}
                         fullWidth required 
+                        onChange={(e) => {setRg(e.target.value)}}
                       />
                     </Grid>
                     
@@ -103,32 +218,35 @@ function MediaCard() {
                         type="text" 
                         label="CPF" 
                         variant="filled" 
-                        InputProps={{ disableUnderline: true }}
+                        InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldCpf }}
                         fullWidth required 
+                        onChange={(e) => {setCpf(e.target.value)}}
                       />
                     </Grid>
                 </Grid>
-
-                {/* ESTADO CIVIL - SELECT - PRECISA ALTERAR */}
-                <Grid item xs={4}>
-                  <FormControl variant="filled" sx={{ minWidth: 280 }}>
-                    <InputLabel id="demo-simple-select-filled-label" sx={{color: '#094e6f', fontWeight: 600}}>Estado Civil</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={estadoCivil}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={"solteiro"}>Solteiro(a)</MenuItem>
-                      <MenuItem value={"casado"}>Casado(a)</MenuItem>
-                      <MenuItem value={"viúvo"}>Viúvo(a)</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-
+                
+                <FormControl 
+                  variant="filled" 
+                  sx={{ marginTop: 1, 
+                        marginLeft: 1, 
+                        minWidth: 310, 
+                  }}>
+                  <InputLabel style={{color: "#094e6f", fontWeight: 600}} id="demo-simple-select-label">Estado Civil</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={estadoCivil}
+                    label="Estado Civil"
+                    onChange={(e) => handleChange(e, 'estadoCivil')}
+                  >
+                    
+                    <MenuItem value={"solteiro"}>Solteiro(a)</MenuItem>
+                    <MenuItem value={"casado"}>Casado(a)</MenuItem>
+                    <MenuItem value={"separado"}>Separado(a)</MenuItem>
+                    <MenuItem value={"divorciado"}>Divorciado(a)</MenuItem>
+                    <MenuItem value={"viuvo"}>Viúvo(a)</MenuItem>
+                  </Select>
+                </FormControl>
                 {/* PROFISSÃO */}
                 <Grid item xs={4}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
@@ -137,19 +255,33 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth required 
+                    onChange={(e) => {setProfissao(e.target.value)}}
                   />
                 </Grid>
-                {/* FUNÇÃO - SELECT - PRECISA ALTERAR */}
-                <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="Função" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true }}
-                    fullWidth required 
-                    onChange={(e) => {setFuncao(e.target.value)} }
-                  />
-                </Grid>
+                
+                <FormControl 
+                  variant="filled" 
+                  required
+                  sx={{ marginTop: 1, 
+                        marginLeft: 1, 
+                        minWidth: 310, 
+                  }}>
+                  <InputLabel style={{color: "#094e6f", fontWeight: 600}} id="demo-simple-select-label">Função</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={funcao}
+                    label="Funcao"
+                    onChange={(e) => handleChange(e, 'funcao')}
+                  >
+                    <MenuItem value={"aluno"}>Aluno(a)</MenuItem>
+                    <MenuItem value={"estagiario"}>Estagiário(a)</MenuItem>
+                    <MenuItem value={"funcionario"}>Funcionário(a)</MenuItem>
+                    <MenuItem value={"professor"}>Professor(a)</MenuItem>
+                    <MenuItem value={"pesquisador"}>Pesquisador(a)</MenuItem>
+                  </Select>
+                </FormControl>
+
                 {/* NUMERO DA TAG */}
                 <Grid item xs={4}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
@@ -158,6 +290,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setTag(e.target.value)}}
                   />
                 </Grid>
 
@@ -169,6 +302,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setLogin(e.target.value)}}
                   />
                 </Grid>
 
@@ -180,6 +314,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setImei(e.target.value)}}
                   />
                 </Grid>
 
@@ -191,6 +326,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setCep(e.target.value)}}
                   />
                 </Grid>
 
@@ -202,20 +338,54 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                  
+                    onChange={(e) => {setEndereco(e.target.value)}}
                   />
                 </Grid>
 
-                {/* UF - SELECT - FALTA ALTERAR */}
-                <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="UF" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true }}
-                    fullWidth 
-                  />
-                </Grid>
+                <FormControl 
+                  variant="filled" 
+                  sx={{ marginTop: 1, 
+                        marginLeft: 1, 
+                        minWidth: 310, 
+                  }}>
+                  <InputLabel style={{color: "#094e6f", fontWeight: 600}} id="demo-simple-select-label">UF</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={uf}
+                    label="UF"
+                    onChange={(e) => handleChange(e, 'uf')}
+                  >
+                    <MenuItem value={"AC"}>AC</MenuItem>
+                    <MenuItem value={"AL"}>AL</MenuItem>
+                    <MenuItem value={"AP"}>AP</MenuItem>
+                    <MenuItem value={"AM"}>AM</MenuItem>
+                    <MenuItem value={"BA"}>BA</MenuItem>
+                    <MenuItem value={"CE"}>CE</MenuItem>
+                    <MenuItem value={"DF"}>DF</MenuItem>
+                    <MenuItem value={"ES"}>ES</MenuItem>
+                    <MenuItem value={"GO"}>GO</MenuItem>
+                    <MenuItem value={"MA"}>MA</MenuItem>
+                    <MenuItem value={"MT"}>MT</MenuItem>
+                    <MenuItem value={"MS"}>MS</MenuItem>
+                    <MenuItem value={"MG"}>MG</MenuItem>
+                    <MenuItem value={"PA"}>PA</MenuItem>
+                    <MenuItem value={"PB"}>PB</MenuItem>
+                    <MenuItem value={"PR"}>PR</MenuItem>
+                    <MenuItem value={"PE"}>PE</MenuItem>
+                    <MenuItem value={"PI"}>PI</MenuItem>
+                    <MenuItem value={"RJ"}>RJ</MenuItem>
+                    <MenuItem value={"RN"}>RN</MenuItem>
+                    <MenuItem value={"RS"}>RS</MenuItem>
+                    <MenuItem value={"RO"}>RO</MenuItem>
+                    <MenuItem value={"RR"}>RR</MenuItem>
+                    <MenuItem value={"SC"}>SC</MenuItem>
+                    <MenuItem value={"SP"}>SP</MenuItem>
+                    <MenuItem value={"SE"}>SE</MenuItem>
+                    <MenuItem value={"TO"}>TO</MenuItem>
+                    
+                  </Select>
+                </FormControl>
 
                 {/* BAIRRO */}
                 <Grid item xs={8}>
@@ -225,6 +395,7 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setBairro(e.target.value)}}
                   />
                 </Grid>
 
@@ -236,17 +407,18 @@ function MediaCard() {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
+                    onChange={(e) => {setCidade(e.target.value)}}
                   />
                 </Grid>
 
-                {/* TELEFONE */}
                 <Grid item xs={4}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     type="text" 
                     label="Telefone" 
                     variant="filled" 
-                    InputProps={{ disableUnderline: true, inputComponent: CustomMaskField }}
+                    InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldTelefone }}
                     fullWidth 
+                    onChange={(e) => {setTelefone(e.target.value)}}
                   />
                 </Grid>
 
@@ -256,9 +428,9 @@ function MediaCard() {
                     type="text" 
                     label="Celular" 
                     variant="filled" 
-                    InputProps={{ disableUnderline: true }}
+                    InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldTelefone }}
                     fullWidth 
-                    onChange={(e) => {setCelular(e.target.value)} }
+                    onChange={(e) => {setCelular(e.target.value)}}
                   />
                 </Grid>
                 
@@ -269,7 +441,12 @@ function MediaCard() {
                     type="submit" 
                     variant="contained"  
                     fullWidth
-                    onSubmit={cadastrarColaborador}
+                    onClick={(e) => {
+                      const isVerify =  verificaCampos()
+                      if(isVerify === true){
+                        cadastrar(e);
+                      }
+                    } }
                     >Cadastrar
                   </Button>
                 </Grid>

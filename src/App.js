@@ -71,9 +71,15 @@ git push -u origin 6Leva
       */} 
       <Router>
         <Routes>
-            <Route exact path="/" element={<UserImageFormFullJS/>}/>
+            <Route exact path="/" element={<Form/>}/>
 
-            <Route exact path="/cadastrar" element={<TelaColaboradores/>}/>
+            <Route exact path="/cadastrar" element={
+              <>
+                <Navbar/>
+                <TelaColaboradores/>
+              </>
+            
+            }/>
             
             <Route exact path="/entrar" element={
               <>
