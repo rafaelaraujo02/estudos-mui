@@ -1,3 +1,7 @@
+
+.geral{
+    min-width: 1010px;
+}
 .infoLogin{
     display: flex;
     color: #094e6f;
@@ -6,6 +10,7 @@
     justify-content: flex-end;
 }
 .infoLogin label{
+
     color: #094e6f;
 }
 
@@ -13,7 +18,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 2vh;
 }
 
 .headerColab .colabText span{
@@ -42,8 +46,6 @@
 
 .teste{
     display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
     flex-wrap: wrap;
 }
 
@@ -69,7 +71,7 @@
     color: #094e6f;
     font-weight: 600;
     font-size: 24px;
-    margin: 10vh;
+    
 
 }
 
