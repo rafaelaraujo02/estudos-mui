@@ -33,7 +33,7 @@ function CustomMaskFieldCpf({ inputRef, ...otherProps }) {
 
 
 function MediaCard() {
-
+  
   const userTemp = "Rafael";
   const [user, setUser] = useState({});
 
@@ -54,6 +54,14 @@ function MediaCard() {
   const [cidade, setCidade] = useState('');
   const [telefone, setTelefone] = useState('');
   const [celular, setCelular] = useState('');
+
+  function emailValidation() {
+    var re = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if(re.test(email))
+      console.log('Email:', email, 'validado');
+    else
+      alert('E-mail inválido');
+  }
 
   const handleChange = (e, string) => {
 
@@ -178,7 +186,10 @@ function MediaCard() {
                         InputProps={{ disableUnderline: true }}
                         fullWidth required 
                         style={{paddingBottom: 6}} 
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                          setEmail(e.target.value)
+                        }}
+                        onBlur={(e) => {emailValidation()}}
                       />
                     </Grid>
 
