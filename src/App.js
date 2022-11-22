@@ -30,6 +30,9 @@ import Mobile from './components/NavItems/Mobile';
 
 import EstudoHooks from './Hooks/EstudoHooks';
 
+import DinamicList from './ListagemColaboradores/DinamicList';
+import DataTable from './ListagemColaboradores/DataTable';
+
 function App() {
 
 /* 
@@ -93,7 +96,7 @@ git push -u origin 6Leva
               <>
                 <HeaderCadastroColaboradores nome="Listar"/>
                 <Navbar/>
-                <ListCollaborators/>
+                <DataTable/>
               </>
             }/>
 

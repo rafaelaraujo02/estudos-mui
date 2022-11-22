@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //ROUTER
 import { Link } from 'react-router-dom';
@@ -55,6 +55,21 @@ function MediaCard() {
   const [telefone, setTelefone] = useState('');
   const [celular, setCelular] = useState('');
 
+  const [person, setPerson] = useState([])
+  {/* npm run backend */}
+  useEffect(() => {
+    fetch("http://localhost:5000/person", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+    })
+    .then((resp => resp.json()))
+    .then((data) => {setPerson(data)})
+    .catch(error => console.log(error))
+  }, [])
+  
+  
   function emailValidation() {
     var re = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
     if(re.test(email))
@@ -277,41 +292,7 @@ function MediaCard() {
                   </Select>
                 </FormControl>
 
-                {/* NUMERO DA TAG */}
-                <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="Número da TAG" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true }}
-                    fullWidth 
-                    onChange={(e) => setTag(e.target.value)}
-                  />
-                </Grid>
-
-                {/* LOGIN */}
-                <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="Login" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true }}
-                    fullWidth 
-                    onChange={(e) => setLogin(e.target.value)}
-                  />
-                </Grid>
-
-                {/* IMEI */}
-                <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="IMEI" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true }}
-                    fullWidth 
-                    onChange={(e) => setImei(e.target.value)}
-                  />
-                </Grid>
+                
 
                 {/* CEP */}
                 <Grid item xs={4} style={{paddingTop: 24}}>

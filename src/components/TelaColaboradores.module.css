@@ -19,6 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding-left: 1vw;
 }
 
 .headerColab .colabText span{
@@ -42,7 +43,7 @@
     background-color: #22607d !important;
 }
 .btn{
-    background-color: #094e6f;
+    background-color: #094e6f !important;
 }
 
 .teste{

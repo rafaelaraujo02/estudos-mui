@@ -21,6 +21,7 @@ import HeaderCadastroColaboradores from '../components/HeaderCadastroColaborador
 import { Link } from 'react-router-dom';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { FormControl, InputLabel, MenuItem, NativeSelect, Select } from '@mui/material';
 
 
 //TAMANHO DO SIDEBAR
@@ -142,7 +143,7 @@ export default function MiniDrawer() {
           */}
         </DrawerHeader>
         <List>
-          {['Acesso', 'Colaboradores', 'Patrimônio', 'Mobile'].map((text, index) => (
+          {['Acesso', 'Colaboradores','Patrimônio', 'Mobile'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <Link to={`/${text}`} style={{ textDecoration: 'none' }}>
 

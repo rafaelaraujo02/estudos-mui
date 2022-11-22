@@ -1,0 +1,25 @@
+{
+    "person": [
+        {
+            "nome": "rafael monteiro",
+            "email": "rafael@teste.com",
+            "rg": "4.444.444",
+            "cpf": "999.888.777-66",
+            "profissao": "estudante",
+            "funcao": "estagiário",
+            "celular": "83 99988-7766"
+            
+        },
+        {
+            "nome": "renan",
+            "email": "renan@teste.com",
+            "rg": "5.555.555",
+            "cpf": "111.222.777-66",
+            "profissao": "estudante",
+            "funcao": "estagiário",
+            "celular": "83 98911-7766"
+        }
+        
+    ]
+    
+}
