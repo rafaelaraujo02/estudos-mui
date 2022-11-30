@@ -19,7 +19,7 @@ function HeaderCadastroColaboradores(props){
   const matches = useMediaQuery('(min-width:767px)');
 
     return(
-        <div style={{width: `calc(99% - 25%)`, marginLeft: "25%", marginTop: 15}}>
+        <div style={{width: `calc(99% - 25%)`, marginLeft: "25%", marginTop: 15, marginBottom: 15}}>
             {/* INFO LOGIN */}
           <div className={styles.infoLogin}>
             <Typography sx={{fontWeight: "bold"}}>

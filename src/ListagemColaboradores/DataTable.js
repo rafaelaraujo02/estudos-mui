@@ -4,7 +4,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button, Select, TableCell, TableRow } from '@mui/material';
 import ButtonList from './ButtonsList';
 import EditIcon from '@mui/icons-material/Edit';
+import SearchCollaborators from './SearchCollaborators';
 
+//AXIOS
 
 export default function DataTable() {
     const [person, setPerson] = useState([])
@@ -17,10 +19,7 @@ export default function DataTable() {
         }
         })
         .then((resp => resp.json()))
-        .then((data) => {
-                            setPerson(data); 
-                            console.log((person[0].nome))
-                        }
+        .then((data) => {setPerson(data)}
             )
         .catch(error => console.log(error))
       }, [])
@@ -38,8 +37,8 @@ export default function DataTable() {
       const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'nome', headerName: 'Nome', width: 300 },
-        { field: 'funcao', headerName: 'Função', width: 130 },
-        { field: 'celular', headerName: 'Celular', width: 130 },
+        { field: 'funcao', headerName: 'Função', width: 150 },
+        { field: 'celular', headerName: 'Celular', width: 150 },
         { field: 'email', headerName: 'E-mail', width: 220},        
         {
           field: 'acoes',
@@ -62,14 +61,14 @@ export default function DataTable() {
     }
       
   return (
-    <div style={{ height: 400, paddingLeft: '25%', width: '98%' }}>
-      
+    <div style={{ height: 600, paddingLeft: '25%', width: '98%' }}>
+        <SearchCollaborators/>
         <DataGrid
              rows={person}
              columns={columns}
              getRowId={(row) =>  generateRandom()}
-             pageSize={5}
-             rowsPerPageOptions={[5]}
+             pageSize={15}
+             rowsPerPageOptions={[15]}
              checkboxSelection  
         />
     </div>

@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/Add';
 import { Component } from "react";
 
 import generators from '../lib/generators'
@@ -32,12 +32,12 @@ class SearchCollaborators extends Component{
         const {onCreate} = this.props;
 
         return(
-            <div>
+            <div style={{marginBottom: 5, marginLeft: 5}}>
                 <form onSubmit={(e) => {e.preventDefault(); } }>
                     <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                                 type="text" 
                                 size="small"
-                                label="Pesquisar"
+                                label="Adicionar Colaborador"
                                 value={nome} 
                                 variant="filled" 
                                 InputProps={{ disableUnderline: true }}
