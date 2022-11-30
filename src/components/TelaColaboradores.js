@@ -239,7 +239,7 @@ function MediaCard() {
                   variant="filled" 
                   sx={{ marginTop: 1, 
                         marginLeft: 1, 
-                        minWidth: 310, 
+                        minWidth: 307, 
                   }}>
                   <InputLabel style={{color: "#094e6f", fontWeight: 600}} id="demo-simple-select-label">Estado Civil</InputLabel>
                   <Select
@@ -274,7 +274,7 @@ function MediaCard() {
                   required
                   sx={{ marginTop: 1, 
                         marginLeft: 1, 
-                        minWidth: 310, 
+                        minWidth: 307, 
                   }}>
                   <InputLabel style={{color: "#094e6f", fontWeight: 600}} id="demo-simple-select-label">Função</InputLabel>
                   <Select
@@ -295,7 +295,7 @@ function MediaCard() {
                 
 
                 {/* CEP */}
-                <Grid item xs={4} style={{paddingTop: 24}}>
+                <Grid item xs={4} style={{paddingTop: 25}}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     type="text" 
                     label="CEP" 
@@ -307,7 +307,7 @@ function MediaCard() {
                 </Grid>
 
                 {/* ENDEREÇO */}
-                <Grid item xs={8} style={{paddingTop: 24}}>
+                <Grid item xs={8} style={{paddingTop: 25}}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     type="text" 
                     label="Endereço" 
@@ -322,7 +322,7 @@ function MediaCard() {
                   variant="filled" 
                   sx={{ marginTop: 1, 
                         marginLeft: 1, 
-                        minWidth: 310, 
+                        minWidth: 307, 
                   }}>
                   <InputLabel style={{color: "#094e6f", fontWeight: 600}} id="demo-simple-select-label">UF</InputLabel>
                   <Select

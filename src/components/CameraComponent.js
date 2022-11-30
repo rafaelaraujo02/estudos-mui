@@ -9,7 +9,7 @@ const StyledPaper = styled(Paper, {})( {
     backgroundColor: "#E2E2E2",
     borderRadius: 2,
     height: 180,
-    width: 310,
+    width: 307,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

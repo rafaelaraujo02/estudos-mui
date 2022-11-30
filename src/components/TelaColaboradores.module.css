@@ -1,6 +1,7 @@
 
 .geral{
-    min-width: 1010px;
+    min-width: 1225px !important;
+    
 }
 
 .infoLogin{
@@ -54,9 +55,10 @@
 .card{
     max-width: 980px;
     padding: 20px 5px; 
-    margin: 0 auto;
+    margin-left: 20%;
     align-items: center;
-    text-align: center
+    text-align: center;
+
 }
 
 .cardMedia{

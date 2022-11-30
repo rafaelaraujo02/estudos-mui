@@ -6,6 +6,10 @@ import ButtonList from './ButtonsList';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchCollaborators from './SearchCollaborators';
 
+//style css
+import styles from './DataTable.module.css';
+import { Link } from 'react-router-dom';
+
 //AXIOS
 
 export default function DataTable() {
@@ -62,7 +66,13 @@ export default function DataTable() {
       
   return (
     <div style={{ height: 600, paddingLeft: '25%', width: '98%' }}>
-        <SearchCollaborators/>
+      <Link to="/cadastrar" style={{ textDecoration: 'none' }}>
+        <Button 
+          variant="contained" 
+          className={styles.btn}
+          >Adicionar Colaborador
+        </Button>
+      </Link>
         <DataGrid
              rows={person}
              columns={columns}

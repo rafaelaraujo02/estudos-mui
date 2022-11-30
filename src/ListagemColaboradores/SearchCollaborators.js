@@ -37,7 +37,7 @@ class SearchCollaborators extends Component{
                     <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                                 type="text" 
                                 size="small"
-                                label="Adicionar Colaborador"
+                                label="Buscar Colaborador"
                                 value={nome} 
                                 variant="filled" 
                                 InputProps={{ disableUnderline: true }}
