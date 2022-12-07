@@ -32,6 +32,7 @@ import EstudoHooks from './Hooks/EstudoHooks';
 
 import DinamicList from './ListagemColaboradores/DinamicList';
 import DataTable from './ListagemColaboradores/DataTable';
+import TesteMaterialTable from './estudo/EstudoTabela/MaterialTable';
 
 function App() {
 
@@ -74,7 +75,7 @@ git push -u origin 6Leva
       */} 
       <Router>
         <Routes>
-            <Route exact path="/" element={<UserImageFormFullJS/>}/>
+            <Route exact path="/teste" element={<TesteMaterialTable/>}/>
 
             <Route exact path="/cadastrar" element={
               <>

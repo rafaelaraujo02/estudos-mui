@@ -1,6 +1,6 @@
 .btn{
     background-color: #094e6f !important;
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
 }
 .btn:hover{
     background-color: #22607d !important;

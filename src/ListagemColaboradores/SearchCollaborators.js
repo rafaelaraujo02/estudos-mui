@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 
-import SearchOutlinedIcon from '@mui/icons-material/Add';
+import SearchOutlinedIcon from '@mui/icons-material/Search';
 import { Component } from "react";
 
 import generators from '../lib/generators'
