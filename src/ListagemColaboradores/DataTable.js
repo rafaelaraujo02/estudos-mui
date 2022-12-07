@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Button, Select, TableCell, TableRow, TextField } from '@mui/material';
 import ButtonList from './ButtonsList';
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,6 +11,7 @@ import SearchCollaborators from './SearchCollaborators';
 import styled from '@emotion/styled';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+
 
 
 //style css
@@ -51,7 +52,7 @@ export default function DataTable() {
     ];
     
       const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'id', headerName: 'ID', width: 70,  headerClassName: 'super-app-theme--header',},
         { field: 'nome', headerName: 'Nome', width: 300 },
         { field: 'funcao', headerName: 'Função', width: 150 },
         { field: 'celular', headerName: 'Celular', width: 150 },
@@ -94,8 +95,8 @@ export default function DataTable() {
             >Adicionar Colaborador
           </Button>
         </Link>
-        {/* BUSCAR COLABORADOR */}
-        <form onSubmit={(e) => {e.preventDefault(); } }>
+        {/* BUSCAR COLABORADOR
+        <form style={{paddingBottom: '5px'}} onSubmit={(e) => {e.preventDefault(); }}>
             <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                         type="text" 
                         size="small"
@@ -112,13 +113,16 @@ export default function DataTable() {
             
         </form>
         
+        */}
       </div>
         <DataGrid
+             sx={{color: '#094e6f'}}
              rows={person}
              columns={columns}
              getRowId={(row) =>  generateRandom()}
              pageSize={15}
              rowsPerPageOptions={[15]}
+             components={{ Toolbar: GridToolbar }}
              componentsProps={{
               toolbar: {
                 showQuickFilter: true,

@@ -75,7 +75,7 @@ git push -u origin 6Leva
       */} 
       <Router>
         <Routes>
-            <Route exact path="/teste" element={<TesteMaterialTable/>}/>
+            <Route exact path="/teste" element={<AppMainFunction/>}/>
 
             <Route exact path="/cadastrar" element={
               <>
