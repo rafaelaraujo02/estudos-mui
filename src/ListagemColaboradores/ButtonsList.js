@@ -7,11 +7,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/CloseOutlined';
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 
-import teste from './ListCollaborators'
+import teste from './ListCollaborators';
 
-function handleEdit(id){
+import TelaColaboradores from '../components/TelaColaboradores';
+import Navbar from '../Sidebar/Navbar';
+import { Link } from 'react-router-dom';
+
+export async function handleEdit(person){
     alert('editar')
-    console.log(id)
+    console.log('handleEdit Buttonlist: ', person)
 }
 
 function handlePrint(){
@@ -49,10 +53,13 @@ function ButtonList(props){
     return(
         <div>
             <Box sx={{alignItems: 'center'}}>
+                <Link to='editar'>
+
                 <Button id="edit" size="small" style={{minWidth: "40px", marginLeft: "4px"}} 
-                        title="Editar" variant="contained" onClick={() => handleEdit(props.id)}>
+                        title="Editar" variant="contained" disabled={props.isClicked} onClick={() => handleEdit(props.person)}>
                     <EditIcon/>
                 </Button>
+                </Link>
                 
                 <Button size="small" style={{minWidth: "40px", marginLeft: "4px"}} 
                         title="Imprimir Relatório" variant="contained" onClick={handlePrint}>
@@ -61,7 +68,7 @@ function ButtonList(props){
                 
                 <Button size="small" style={{minWidth: "40px", marginLeft: "4px"}} 
                         title="Excluir" variant="contained" 
-                        onClick={ () => deleteExp(props.id)}>
+                        onClick={ () => deleteExp(props.person.id)}>
                     <CloseIcon/>
                 </Button>
             </Box>

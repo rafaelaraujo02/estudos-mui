@@ -24,8 +24,11 @@ import { Search } from '@mui/icons-material';
 export default function DataTable() {
     
     const [person, setPerson] = useState([]);
-    const [data, setData] = useState();
-
+    //Recebe os dados do usuário referente à linha da tabela selecionada (Está bugada)
+    const [data, setData] = useState([]);
+    //Recebe os dados do usuário referente à linha da tabela selecionada
+    let dataUserRow;
+    let isClicked = false;
 
     useEffect(() => {
         fetch("http://localhost:5000/person", {
@@ -63,7 +66,7 @@ export default function DataTable() {
           width: 160,
           renderCell: (params) => (
             onclick={handleRowClick},
-            <ButtonList id={data}/>
+            <ButtonList person={dataUserRow} isClicked={false}/>
           ),
         },
       ];
@@ -79,9 +82,14 @@ export default function DataTable() {
       }
 
   const handleRowClick = (params) => {
-    
-    setData(params.row.id);
-    console.log(params.row.nome);
+    console.log('primeiro console handleRowClick:', params.row);
+    //const dados = params.row;
+    dataUserRow = params.row;
+    console.log('segundo console handlerowClick', dataUserRow);
+    //setData(params.row);
+    //console.log(data);
+    isClicked = true;
+  
   };
       
   return (
@@ -129,7 +137,8 @@ export default function DataTable() {
                 quickFilterProps: { debounceMs: 500 },
               },
             }}
-             onRowClick={handleRowClick}
+             //onRowClick={handleRowClick}
+             onCellClick={handleRowClick}
         />
     </div>
   );

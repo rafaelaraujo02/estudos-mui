@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 //ROUTER
 import { Link } from 'react-router-dom';
@@ -19,6 +19,7 @@ import GroupIcon from '@mui/icons-material/Group';
 
 //MASCARAS PARA TELEFONE
 import { MaskField } from 'react-mask-field';
+import MyContext from '../context/MyContext';
 
 //FUNÇÃO PARA A MASCARA DE TELEFONE
 function CustomMaskFieldTelefone({ inputRef, ...otherProps }) {
@@ -32,8 +33,15 @@ function CustomMaskFieldCpf({ inputRef, ...otherProps }) {
 }
 
 
-function MediaCard() {
+function MediaCard(props) {
+  let editNome = "rafael araújo";
   
+  const [typeFunc, editTypeFunc] = useState(false);
+  
+  if(props.tipo === "editar"){
+    editTypeFunc(true);
+  }
+
   const userTemp = "Rafael";
   const [user, setUser] = useState({});
 
@@ -56,6 +64,7 @@ function MediaCard() {
   const [celular, setCelular] = useState('');
 
   const [person, setPerson] = useState([])
+
   {/* npm run backend */}
   useEffect(() => {
     fetch("http://localhost:5000/person", {
@@ -134,7 +143,8 @@ function MediaCard() {
       return true;
   }
 
-
+  //Desestruturação do context
+  const { userContext, setUserContext } = useContext(MyContext)
   return (
     <div className={styles.geral}>
 
@@ -159,7 +169,7 @@ function MediaCard() {
           <div className={styles.headerColab}>
             <GroupIcon /> 
             <Typography className={styles.colabText}>
-              <span>COLABORADORES </span>/ Cadastrar
+              <span>COLABORADORES </span>/ {props.tipo}
             </Typography>
           </div>
           {/* FIM HEADER COLABORADORES */}
@@ -184,6 +194,7 @@ function MediaCard() {
                 <Grid xs={8} item className={styles.teste}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     label="Nome" 
+                    defaultValue={typeFunc ? "tipo 1" : "tipo 2"}
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth required
@@ -196,6 +207,7 @@ function MediaCard() {
                     <Grid item xs={12}>
                       <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                         type="email" 
+                        defaultValue={userContext}
                         label="E-mail" 
                         variant="filled" 
                         InputProps={{ disableUnderline: true }}

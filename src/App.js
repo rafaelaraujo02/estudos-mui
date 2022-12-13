@@ -34,6 +34,9 @@ import DinamicList from './ListagemColaboradores/DinamicList';
 import DataTable from './ListagemColaboradores/DataTable';
 import TesteMaterialTable from './estudo/EstudoTabela/MaterialTable';
 
+import MyContext from './context/MyContext';
+import { useState } from 'react';
+
 function App() {
 
 /* 
@@ -61,18 +64,13 @@ git commit -m "6Leva - Pesquisas"
 git checkout -b 6LEVA
 git remote add origin https://github.com/proffredbublitz/senselab_general
 git push -u origin 6Leva
+*/
 
-  */
+  const [userContext, setUserContext] = useState('testando context api');
   return (
     <div className="App">
-      {/* 
-      <HeaderCadastroColaboradores/>
-      <Navbar/>
-      <AppMain/>
-      <ListCollaborators/>
-      <TabelaTeste/>
-      <Tabela2/>
-      */} 
+      <MyContext.Provider value={{userContext, setUserContext}}>
+  
       <Router>
         <Routes>
             <Route exact path="/teste" element={<AppMainFunction/>}/>
@@ -80,8 +78,15 @@ git push -u origin 6Leva
             <Route exact path="/cadastrar" element={
               <>
                 <Navbar/>
-                <TelaColaboradores/>
+                <TelaColaboradores tipo="Cadastrar"/>
               </>
+            }/>
+            
+            <Route exact path="/colaboradores/editar" element={
+                  <>
+                    <Navbar/>
+                    <TelaColaboradores tipo="Editar"/>
+                  </>
             }/>
             
             <Route exact path="/entrar" element={
@@ -130,7 +135,7 @@ git push -u origin 6Leva
             }/>
         </Routes>
       </Router>
-      
+      </MyContext.Provider>
     </div>
   );
 }
