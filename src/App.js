@@ -35,41 +35,21 @@ import DataTable from './ListagemColaboradores/DataTable';
 import TesteMaterialTable from './estudo/EstudoTabela/MaterialTable';
 
 import MyContext from './context/MyContext';
+
 import { useState } from 'react';
 
 function App() {
 
-/* 
-git status
-git add .
-git commit -m "message"
-git push origin main
+  const [email, setEmail] = useState()
 
-git init
-git remote add origin https://github.com/proffredbublitz/senselab_general
-git checkout -b branch-nova
-git add .
-git commit -m "Pesquisa"
-git push origin branch-nova
+    const handleSubmit = ({ email }) => {
+        console.log('dados APP: ', { email })
+        setEmail(email)
+    }
 
-git init
-git add .
-git commit -m "Pesquisa"
-git checkout -b Pesquisa
-git remote add origin https://github.com/proffredbublitz/senselab_general.git
-
-git init
-git add .
-git commit -m "6Leva - Pesquisas"
-git checkout -b 6LEVA
-git remote add origin https://github.com/proffredbublitz/senselab_general
-git push -u origin 6Leva
-*/
-
-  const [userContext, setUserContext] = useState('testando context api');
   return (
     <div className="App">
-      <MyContext.Provider value={{userContext, setUserContext}}>
+      <MyContext.Provider value={'email'}>
   
       <Router>
         <Routes>
@@ -85,7 +65,7 @@ git push -u origin 6Leva
             <Route exact path="/colaboradores/editar" element={
                   <>
                     <Navbar/>
-                    <TelaColaboradores tipo="Editar"/>
+                    <TelaColaboradores tipo="Editar" emailContext={email}/>
                   </>
             }/>
             
@@ -107,7 +87,7 @@ git push -u origin 6Leva
               <>
                 <HeaderCadastroColaboradores nome="Listar"/>
                 <Navbar/>
-                <DataTable/>
+                <DataTable onSubmit={handleSubmit}/>
               </>
             }/>
 

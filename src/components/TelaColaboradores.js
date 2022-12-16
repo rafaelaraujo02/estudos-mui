@@ -34,8 +34,8 @@ function CustomMaskFieldCpf({ inputRef, ...otherProps }) {
 
 
 function MediaCard(props) {
-  let editNome = "rafael araújo";
-  
+
+  let editNome = "rafael araújo";  
   const [typeFunc, editTypeFunc] = useState(false);
   
   if(props.tipo === "editar"){
@@ -97,7 +97,7 @@ function MediaCard(props) {
       setEstadoCivil(e.target.value);
   }
 
-  function cadastrar(e){
+  function handleSubmit(e){
     e.preventDefault();
     const person = {
       'nome': nome,
@@ -145,7 +145,9 @@ function MediaCard(props) {
 
   //Desestruturação do context
   const { userContext, setUserContext } = useContext(MyContext)
+  console.log('userContext: ', userContext);
   return (
+    <MyContext.Provider>
     <div className={styles.geral}>
 
       <Grid className={styles.mainGrid}>
@@ -207,7 +209,6 @@ function MediaCard(props) {
                     <Grid item xs={12}>
                       <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                         type="email" 
-                        defaultValue={userContext}
                         label="E-mail" 
                         variant="filled" 
                         InputProps={{ disableUnderline: true }}
@@ -433,7 +434,7 @@ function MediaCard(props) {
                     onClick={(e) => {
                       if(verificarCampos(e) === true){
                           e.preventDefault();
-                          cadastrar(e);
+                          handleSubmit(e);
                       }                      
                     }}
                     >Cadastrar
@@ -446,7 +447,7 @@ function MediaCard(props) {
         </Card>
       </Grid>
     </div>
-    
+    </MyContext.Provider>
   );
 }
 

@@ -19,16 +19,20 @@ import styles from './DataTable.module.css';
 import { Link } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
 
-//AXIOS
+//CONTEXT
 
-export default function DataTable() {
-    
+export default function DataTable({ onSubmit }) {
+    //Recebe os dados do bd.json
     const [person, setPerson] = useState([]);
     //Recebe os dados do usuário referente à linha da tabela selecionada (Está bugada)
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     //Recebe os dados do usuário referente à linha da tabela selecionada
     let dataUserRow;
     let isClicked = false;
+
+    //Desestruturação do context
+    const [userContext, setUserContext] = useState();
+    //pegar o usuário da linha e fazer algo como setUserContext(person)
 
     useEffect(() => {
         fetch("http://localhost:5000/person", {
@@ -66,7 +70,7 @@ export default function DataTable() {
           width: 160,
           renderCell: (params) => (
             onclick={handleRowClick},
-            <ButtonList person={dataUserRow} isClicked={false}/>
+            <ButtonList dataPerson={data} isClicked={false}/>
           ),
         },
       ];
@@ -86,60 +90,47 @@ export default function DataTable() {
     //const dados = params.row;
     dataUserRow = params.row;
     console.log('segundo console handlerowClick', dataUserRow);
-    //setData(params.row);
+    setData(dataUserRow);
     //console.log(data);
     isClicked = true;
+    
+    const passaEmail = params.row.email;
+    setUserContext(passaEmail);
   
   };
       
   return (
-    <div style={{ height: 600, paddingLeft: '25%', width: '98%' }}>
-      
-      <div style={{display: "flex", justifyContent: 'space-between'}}>
-        <Link to="/cadastrar" style={{ textDecoration: 'none' }}>
-          <Button 
-            variant="contained" 
-            className={styles.btn}
-            >Adicionar Colaborador
-          </Button>
-        </Link>
-        {/* BUSCAR COLABORADOR
-        <form style={{paddingBottom: '5px'}} onSubmit={(e) => {e.preventDefault(); }}>
-            <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                        type="text" 
-                        size="small"
-                        label="Buscar Colaborador"
-                          
-                        variant="filled" 
-                        InputProps={{ disableUnderline: true }}
-                        style={{width: 250}}
-            />
-            <Button type="submit" size="small" style={{minWidth: "45px", minHeight: "45px", marginLeft: "4px"}} 
-                title="Imprimir Relatório" variant="contained">
-                <SearchOutlinedIcon/>
-            </Button>
-            
-        </form>
+  
+      <div style={{ height: 600, paddingLeft: '25%', width: '98%' }}>
         
-        */}
+        <div style={{display: "flex", justifyContent: 'space-between'}}>
+          <Link to="/cadastrar" style={{ textDecoration: 'none' }}>
+            <Button 
+              variant="contained" 
+              className={styles.btn}
+              >Adicionar Colaborador
+            </Button>
+          </Link>
+          
+        </div>
+          <DataGrid
+              sx={{color: '#094e6f'}}
+              rows={person}
+              columns={columns}
+              getRowId={(row) =>  generateRandom()}
+              pageSize={15}
+              rowsPerPageOptions={[15]}
+              components={{ Toolbar: GridToolbar }}
+              componentsProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 500 },
+                },
+              }}
+              //onRowClick={handleRowClick}
+              onCellClick={handleRowClick}
+          />
       </div>
-        <DataGrid
-             sx={{color: '#094e6f'}}
-             rows={person}
-             columns={columns}
-             getRowId={(row) =>  generateRandom()}
-             pageSize={15}
-             rowsPerPageOptions={[15]}
-             components={{ Toolbar: GridToolbar }}
-             componentsProps={{
-              toolbar: {
-                showQuickFilter: true,
-                quickFilterProps: { debounceMs: 500 },
-              },
-            }}
-             //onRowClick={handleRowClick}
-             onCellClick={handleRowClick}
-        />
-    </div>
+    
   );
 }

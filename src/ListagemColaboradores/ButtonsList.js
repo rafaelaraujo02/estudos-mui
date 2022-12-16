@@ -44,11 +44,7 @@ export async function deleteExp(id) {
   }
 
 
-function ButtonList(props){
-    
-    const [teste, setTeste] = useState()
-    
-    
+function ButtonList(props){    
     
     return(
         <div>
@@ -56,7 +52,11 @@ function ButtonList(props){
                 <Link to='editar'>
 
                 <Button id="edit" size="small" style={{minWidth: "40px", marginLeft: "4px"}} 
-                        title="Editar" variant="contained" disabled={props.isClicked} onClick={() => handleEdit(props.person)}>
+                        title="Editar" variant="contained" disabled={props.isClicked} 
+                        onClick={() => {
+                          console.log('edit button data: ', props.dataPerson); 
+                          handleEdit(props.dataPerson)
+                        }}>
                     <EditIcon/>
                 </Button>
                 </Link>
