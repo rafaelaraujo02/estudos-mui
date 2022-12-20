@@ -20,6 +20,7 @@ import GroupIcon from '@mui/icons-material/Group';
 //MASCARAS PARA TELEFONE
 import { MaskField } from 'react-mask-field';
 import MyContext from '../context/MyContext';
+import { useForm } from '../Hooks/useForm';
 
 //FUNÇÃO PARA A MASCARA DE TELEFONE
 function CustomMaskFieldTelefone({ inputRef, ...otherProps }) {
@@ -34,6 +35,22 @@ function CustomMaskFieldCpf({ inputRef, ...otherProps }) {
 
 
 function MediaCard(props) {
+  const { inputValues, handleInputChange, resetForm} = useForm({
+    useNome: '',
+    useEmail: '',
+    useRg: '',
+    useCpf: '',
+    useEstadoCivil: '',
+    useProfession: '',
+    useFuncao: '',
+    useCep: '',
+    useEndereco: '',
+    useUf: '',
+    useBairro: '',
+    useCidade: '',
+    useTelefone: '',
+    useCelular: '',
+  })
 
   let editNome = "rafael araújo";  
   const [typeFunc, editTypeFunc] = useState(false);
@@ -45,27 +62,44 @@ function MediaCard(props) {
   const userTemp = "Rafael";
   const [user, setUser] = useState({});
 
-  const [nome, setNome] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [rg, setRg] = useState('');
   const [cpf, setCpf] = useState('');
   const [estadoCivil, setEstadoCivil] = useState('');
-  const [profissao, setProfissao] = useState('');
-  const [funcao, setFuncao] = useState('');
-  const [tag, setTag] = useState('');
-  const [login, setLogin] = useState('');
-  const [imei, setImei] = useState('');
+  const [profession, setProfession] = useState('');
+  const [functionPerson, setFunctionPerson] = useState('');
+  
   const [cep, setCep] = useState('');
-  const [endereco, setEndereco] = useState('');
+  const [adress, setAdress] = useState('');
   const [uf, setUf] = useState('');
-  const [bairro, setBairro] = useState('');
+  const [district, setDistrict] = useState('');
   const [cidade, setCidade] = useState('');
-  const [telefone, setTelefone] = useState('');
+  const [phone, setPhone] = useState('');
   const [celular, setCelular] = useState('');
 
   const [person, setPerson] = useState([])
 
-  {/* npm run backend */}
+  {/* npm run backend 
+  http://192.168.81.159:3000/person
+
+  "id": 6,
+        "cpf": "13271029431",
+        "photo": null,
+        "name": "Renan Gustavo de Albuquerque Melo",
+        "email": "renangustavoo101@gmail.com",
+        "rg": "9283320",
+        "profession": "Desenvolvedor",
+        "maritalStatus": "Solteiro",
+        "function": "Desenvolvedor Back-end",
+        "zipCode": "5575000",
+        "address": "Rua Manoel Silvestre da Mata Ribeiro, 14a",
+        "uf": "PE",
+        "district": "Centro",
+        "city": "Orobó",
+        "cellphone": "40028922",
+        "phone": "81997201091"
+*/}
   useEffect(() => {
     fetch("http://localhost:5000/person", {
     method: "GET",
@@ -90,7 +124,7 @@ function MediaCard(props) {
   const handleChange = (e, string) => {
 
     if(string === 'funcao')
-      setFuncao(e.target.value);
+      setFunctionPerson(e.target.value);
     if(string === 'uf')
       setUf(e.target.value);
     if(string === 'estadoCivil')
@@ -100,22 +134,19 @@ function MediaCard(props) {
   function handleSubmit(e){
     e.preventDefault();
     const person = {
-      'nome': nome,
+      'name': name,
       'email': email,
       'rg': rg,
       'cpf': cpf,
       'estadoCivil': estadoCivil,
-      'profissao': profissao,
-      'funcao': funcao,
-      'tag': tag,
-      'login': login,
-      'imei': imei,
+      'profession': profession,
+      'functionPerson': functionPerson,
       'cep': cep,
-      'endereco': endereco,
+      'adress': adress,
       'uf': uf,
-      'bairro': bairro,
+      'district': district,
       'cidade': cidade,
-      'telefone': telefone,
+      'phone': phone,
       'celular': celular,
 
     }
@@ -127,7 +158,7 @@ function MediaCard(props) {
 
   function verificarCampos(e){
     e.preventDefault();
-    if(nome === '')
+    if(name === '')
       alert('Campo "Nome" obrigatório');
     else if(email === '')
       alert('Campo "E-mail" obrigatório');
@@ -135,19 +166,16 @@ function MediaCard(props) {
       alert('Campo "RG" obrigatório');
     else if(cpf === '')
       alert('Campo "CPF" obrigatório');
-    else if(profissao === '')
+    else if(profession === '')
       alert('Campo "Profissão" obrigatório');
-    else if(funcao === '')
+    else if(functionPerson === '')
       alert('Campo "Função" obrigatório');
     else
       return true;
   }
 
-  //Desestruturação do context
-  const { userContext, setUserContext } = useContext(MyContext)
-  console.log('userContext: ', userContext);
   return (
-    <MyContext.Provider>
+    <>
     <div className={styles.geral}>
 
       <Grid className={styles.mainGrid}>
@@ -192,16 +220,16 @@ function MediaCard(props) {
                 </Grid>
                 
 
-                {/* NOME */}
+                {/* NOME defaultValue={typeFunc ? "tipo 1" : "tipo 2"}*/}
                 <Grid xs={8} item className={styles.teste}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     label="Nome" 
-                    defaultValue={typeFunc ? "tipo 1" : "tipo 2"}
+                    
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth required
                     style={{paddingBottom: 6}} 
-                    onChange={(e) => setNome(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                     
                     />
 
@@ -278,7 +306,7 @@ function MediaCard(props) {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth required 
-                    onChange={(e) => setProfissao(e.target.value)}
+                    onChange={(e) => setProfession(e.target.value)}
                   />
                 </Grid>
                 
@@ -293,7 +321,7 @@ function MediaCard(props) {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={funcao}
+                    value={functionPerson}
                     label="Funcao"
                     onChange={(e) => handleChange(e, 'funcao')}
                   >
@@ -327,7 +355,7 @@ function MediaCard(props) {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                    onChange={(e) => setEndereco(e.target.value)}
+                    onChange={(e) => setAdress(e.target.value)}
                   />
                 </Grid>
 
@@ -384,7 +412,7 @@ function MediaCard(props) {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                    onChange={(e) => setBairro(e.target.value)}
+                    onChange={(e) => setDistrict(e.target.value)}
                   />
                 </Grid>
 
@@ -408,7 +436,7 @@ function MediaCard(props) {
                     variant="filled" 
                     InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldTelefone }}
                     fullWidth 
-                    onChange={(e) => setTelefone(e.target.value)}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </Grid>
 
@@ -447,7 +475,7 @@ function MediaCard(props) {
         </Card>
       </Grid>
     </div>
-    </MyContext.Provider>
+    </>
   );
 }
 

@@ -13,8 +13,8 @@ import Location from "./loadImages/Location";
 import Navbar from "./Sidebar/Navbar"
 import Sidebar from "./Sidebar/Sidebar"
 import HeaderCadastroColaboradores from "./components/HeaderCadastroColaboradores";
-import TabelaTeste from './testes/Tabela'
-import Tabela2 from './testes/Tabela2'
+import LiftingState from './testes/LiftingState'
+import CRUDjson from './testes/CRUDjson'
 import AppMain from './estudo/AppMain'
 import AppMainFunction from './estudo/AppMainFunction'
 import { Container } from '@mui/material';
@@ -33,6 +33,7 @@ import EstudoHooks from './Hooks/EstudoHooks';
 import DinamicList from './ListagemColaboradores/DinamicList';
 import DataTable from './ListagemColaboradores/DataTable';
 import TesteMaterialTable from './estudo/EstudoTabela/MaterialTable';
+import {ProfilePhoto} from './loadImages/ProfilePhoto';
 
 import MyContext from './context/MyContext';
 
@@ -40,21 +41,17 @@ import { useState } from 'react';
 
 function App() {
 
-  const [email, setEmail] = useState()
-
-    const handleSubmit = ({ email }) => {
-        console.log('dados APP: ', { email })
-        setEmail(email)
-    }
-
+  const [nome, setNome] = useState();
+  const [email, setEmail] = useState();
+  const [person, setPerson] = useState({})
+  
   return (
     <div className="App">
       <MyContext.Provider value={'email'}>
   
       <Router>
         <Routes>
-            <Route exact path="/teste" element={<AppMainFunction/>}/>
-
+        
             <Route exact path="/cadastrar" element={
               <>
                 <Navbar/>
@@ -63,10 +60,10 @@ function App() {
             }/>
             
             <Route exact path="/colaboradores/editar" element={
-                  <>
-                    <Navbar/>
-                    <TelaColaboradores tipo="Editar" emailContext={email}/>
-                  </>
+              <>
+                <Navbar/>
+                <TelaColaboradores tipo="Editar"/>
+              </>
             }/>
             
             <Route exact path="/entrar" element={
@@ -87,7 +84,10 @@ function App() {
               <>
                 <HeaderCadastroColaboradores nome="Listar"/>
                 <Navbar/>
-                <DataTable onSubmit={handleSubmit}/>
+                <DataTable persona={setPerson}/>
+                <h2 style={{marginLeft: 95}}>
+                  {person.nome}
+                </h2>
               </>
             }/>
 

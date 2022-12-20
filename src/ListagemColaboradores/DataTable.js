@@ -20,8 +20,32 @@ import { Link } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
 
 //CONTEXT
+import getListColaborators from '../services/localstorage';
+export default function DataTable({persona}) {
 
-export default function DataTable({ onSubmit }) {
+  //TESTANDO LISTA PEGANDO DADOS DO LOCALSTORAGE
+  const [colaborators, setColaborators] = useState([])
+  useEffect(() => {
+    setColaborators(getListColaborators());
+  }, []);
+
+  //
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJlbmFuR3VzdGF2byIsImlhdCI6MTY3MTQ3NDMyMiwiZXhwIjoxNjcxNDc3OTIyfQ.wos2EjM1D3zd6vxZch-HfxB1GF7bt4IUP2s_ZG9lJZg");
+  myHeaders.append("Content-Type", "application/json");
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+  
+  useEffect(() => {
+    fetch("http://192.168.81.159:3000/person", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  }, [])
+
     //Recebe os dados do bd.json
     const [person, setPerson] = useState([]);
     //Recebe os dados do usuário referente à linha da tabela selecionada (Está bugada)
@@ -47,22 +71,11 @@ export default function DataTable({ onSubmit }) {
         .catch(error => console.log(error))
       }, [])
       
-
-    const rows = [
-        {   id: 1,
-            nome: 'rafael araujo',
-            funcao: 'estagiário',
-            celular: '83 98877-6655',
-            email: 'rafael@teste.com',
-
-        },
-    ];
-    
       const columns = [
         { field: 'id', headerName: 'ID', width: 70,  headerClassName: 'super-app-theme--header',},
-        { field: 'nome', headerName: 'Nome', width: 300 },
-        { field: 'funcao', headerName: 'Função', width: 150 },
-        { field: 'celular', headerName: 'Celular', width: 150 },
+        { field: 'name', headerName: 'Nome', width: 300 },
+        { field: 'functionPerson', headerName: 'Função', width: 150 },
+        { field: 'cellphone', headerName: 'Celular', width: 150 },
         { field: 'email', headerName: 'E-mail', width: 200},        
         {
           field: 'acoes',
@@ -93,10 +106,9 @@ export default function DataTable({ onSubmit }) {
     setData(dataUserRow);
     //console.log(data);
     isClicked = true;
-    
-    const passaEmail = params.row.email;
-    setUserContext(passaEmail);
-  
+    const emailPassado = params.row.email;
+    persona(dataUserRow);
+    //seuEmail(emailPassado);
   };
       
   return (
