@@ -31,7 +31,7 @@ export default function DataTable({persona}) {
 
   //
   var myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJlbmFuR3VzdGF2byIsImlhdCI6MTY3MTQ3NDMyMiwiZXhwIjoxNjcxNDc3OTIyfQ.wos2EjM1D3zd6vxZch-HfxB1GF7bt4IUP2s_ZG9lJZg");
+  myHeaders.append("Authorization");
   myHeaders.append("Content-Type", "application/json");
   var requestOptions = {
     method: 'GET',
