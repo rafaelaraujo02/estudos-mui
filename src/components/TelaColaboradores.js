@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import { FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Alert, Box, FormControl, Grid, IconButton, Input, InputLabel, MenuItem, Select, Snackbar, SnackbarContent, Stack, TextField, Typography } from '@mui/material';
 
 //ARQUIVO DE ESTILOS
 import styles from './TelaColaboradores.module.css';
@@ -18,41 +18,24 @@ import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import GroupIcon from '@mui/icons-material/Group';
 
 //MASCARAS PARA TELEFONE
-import { MaskField } from 'react-mask-field';
-import MyContext from '../context/MyContext';
-import { useForm } from '../Hooks/useForm';
 
+import { IMaskInput } from 'react-imask';
+
+//snack
+import Success from './SnackBar/Success';
+
+import { AppContext } from './SnackBar/AppProvider';
 //FUNÇÃO PARA A MASCARA DE TELEFONE
-function CustomMaskFieldTelefone({ inputRef, ...otherProps }) {
-  return <MaskField ref={inputRef} mask="(__) _ ____-____" replacement="_" {...otherProps} />;
-}
-function CustomMaskFieldRg({ inputRef, ...otherProps }) {
-  return <MaskField ref={inputRef} mask="_.___.___" replacement="_" {...otherProps} />;
-}
-function CustomMaskFieldCpf({ inputRef, ...otherProps }) {
-  return <MaskField ref={inputRef} mask="___.___.___-__" replacement="_" {...otherProps} />;
-}
+
+
+
 
 
 function MediaCard(props) {
-  const { inputValues, handleInputChange, resetForm} = useForm({
-    useNome: '',
-    useEmail: '',
-    useRg: '',
-    useCpf: '',
-    useEstadoCivil: '',
-    useProfession: '',
-    useFuncao: '',
-    useCep: '',
-    useEndereco: '',
-    useUf: '',
-    useBairro: '',
-    useCidade: '',
-    useTelefone: '',
-    useCelular: '',
-  })
+  
 
-  let editNome = "rafael araújo";  
+  
+  
   const [typeFunc, editTypeFunc] = useState(false);
   
   if(props.tipo === "editar"){
@@ -80,26 +63,6 @@ function MediaCard(props) {
 
   const [person, setPerson] = useState([])
 
-  {/* npm run backend 
-  http://192.168.81.159:3000/person
-
-  "id": 6,
-        "cpf": "13271029431",
-        "photo": null,
-        "name": "Renan Gustavo de Albuquerque Melo",
-        "email": "renangustavoo101@gmail.com",
-        "rg": "9283320",
-        "profession": "Desenvolvedor",
-        "maritalStatus": "Solteiro",
-        "function": "Desenvolvedor Back-end",
-        "zipCode": "5575000",
-        "address": "Rua Manoel Silvestre da Mata Ribeiro, 14a",
-        "uf": "PE",
-        "district": "Centro",
-        "city": "Orobó",
-        "cellphone": "40028922",
-        "phone": "81997201091"
-*/}
   useEffect(() => {
     fetch("http://localhost:5000/person", {
     method: "GET",
@@ -112,15 +75,41 @@ function MediaCard(props) {
     .catch(error => console.log(error))
   }, [])
   
-  
-  function emailValidation() {
-    var re = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-    if(re.test(email))
-      console.log('Email:', email, 'validado');
+  // EMAIL
+  function verificarCampos(e){
+    e.preventDefault();
+    if(name === '')
+      alert('Campo "Nome" obrigatório');
+    else if(email === '')
+      alert('Campo "E-mail" obrigatório');
+    else if(rg === '')
+      alert('Campo "RG" obrigatório');
+    else if(cpf === '')
+      alert('Campo "CPF" obrigatório');
+    else if(profession === '')
+      alert('Campo "Profissão" obrigatório');
+    else if(functionPerson === '')
+      alert('Campo "Função" obrigatório');
     else
-      alert('E-mail inválido');
+      return true;
   }
 
+  const { setShowAlert, setShowSuccess } = useContext(AppContext);
+
+
+  function emailValidation() {
+  const re = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+  
+  if (re.test(email)) {
+    console.log('success')
+    setShowSuccess(true);
+  } else {
+    console.log('alert')
+    setShowAlert(true);
+  } 
+  
+  }
+ /* ---------------------------------------------------------------------------- */
   const handleChange = (e, string) => {
 
     if(string === 'funcao')
@@ -156,28 +145,57 @@ function MediaCard(props) {
     alert('Cadastro realizado com sucesso');
   }
 
-  function verificarCampos(e){
-    e.preventDefault();
-    if(name === '')
-      alert('Campo "Nome" obrigatório');
-    else if(email === '')
-      alert('Campo "E-mail" obrigatório');
-    else if(rg === '')
-      alert('Campo "RG" obrigatório');
-    else if(cpf === '')
-      alert('Campo "CPF" obrigatório');
-    else if(profession === '')
-      alert('Campo "Profissão" obrigatório');
-    else if(functionPerson === '')
-      alert('Campo "Função" obrigatório');
-    else
-      return true;
+  //CONTROLE DE MÁSCARA
+  
+  
+  //FUNÇÕES PARA GERENCIAR OS CAMPOS QUE POSSUEM MÁSCARAS
+  
+  
+  
+
+  
+
+
+
+  const [values, setValues] = React.useState({
+    textmask: '',
+  });
+
+  const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+    const { onChange, ...other } = props;
+    return (
+      <IMaskInput
+        {...other}
+        mask="(00) 0 0000-0000"
+        showmask
+        definitions={{
+          '#': /[1-9]/,
+        }}
+        inputRef={ref}
+        onAccept={(value) => onChange({ target: { name: props.name, value } })}
+        overwrite
+      />
+    );
+  }); 
+
+  const handleChangeCelular = (event) => {
+    setCelular(event.target.value)
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleBlur = (event) => {
+    alert(celular)
+    setShowSuccess(true);
   }
-
+  
   return (
-    <>
-    <div className={styles.geral}>
+    
 
+    <div className={styles.geral}>
+      
       <Grid className={styles.mainGrid}>
         <Card className={styles.card}>
 
@@ -209,28 +227,22 @@ function MediaCard(props) {
             <form>
               <Grid container spacing={1}>
 
-                {/* IMAGE SEARCH 
-                  <IconButton component="label">
-                  <input hidden accept="image/*" type="file" />
-                  <CameraComponent />
-                </IconButton>
-                */}
                 <Grid xs={4} item>
                   <CameraComponent/>
                 </Grid>
                 
 
-                {/* NOME defaultValue={typeFunc ? "tipo 1" : "tipo 2"}*/}
+                {/* NOME */}
                 <Grid xs={8} item className={styles.teste}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     label="Nome" 
-                    
-                    variant="filled" 
+                    variant="filled"
                     InputProps={{ disableUnderline: true }}
                     fullWidth required
-                    style={{paddingBottom: 6}} 
-                    onChange={(e) => setName(e.target.value)}
-                    
+                    style={{paddingBottom: 6}}
+                    onChange={(e) => {
+                      setName(e.target.value)
+                    }}
                     />
 
                     {/* E-MAIL */}
@@ -245,33 +257,36 @@ function MediaCard(props) {
                         onChange={(e) => {
                           setEmail(e.target.value)
                         }}
-                        onBlur={(e) => {emailValidation()}}
+                        onBlur={(e) => emailValidation(e)}
                       />
                     </Grid>
-
                     {/* RG */}
-
                     <Grid item xs={6} style={{paddingRight: 4}}>
                       <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                        type="text" 
+                        type="text"
                         label="RG" 
                         variant="filled" 
-                        InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldRg }}
+                        InputProps={{ disableUnderline: true }}
                         fullWidth required 
-                        onChange={(e) => setRg(e.target.value)}
+                        onChange={(e) => {
+                          setRg(e.target.value.replace(/\D/g, ''))
+                        }}
                       />
                     </Grid>
                     
-                    {/* CPF */}
+                    {/* CPF InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldCpf }}*/}
                     
                     <Grid item xs={6} style={{paddingLeft: 4}}>
                       <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                         type="text" 
                         label="CPF" 
                         variant="filled" 
-                        InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldCpf }}
+                        InputProps={{ disableUnderline: true }}
                         fullWidth required 
-                        onChange={(e) => setCpf(e.target.value)}
+                        onChange={(e) => {
+                          setCpf(e.target.value.replace(/\D/g, ''))
+                        }}
+                        
                       />
                     </Grid>
                 </Grid>
@@ -286,9 +301,11 @@ function MediaCard(props) {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={estadoCivil}
                     label="Estado Civil"
-                    onChange={(e) => handleChange(e, 'estadoCivil')}
+                    onChange={(e) => {
+                      handleChange(e, 'estadoCivil')
+                      
+                    }}
                   >
                     
                     <MenuItem value={"solteiro"}>Solteiro(a)</MenuItem>
@@ -306,10 +323,12 @@ function MediaCard(props) {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth required 
-                    onChange={(e) => setProfession(e.target.value)}
+                    onChange={(e) => {
+                      setProfession(e.target.value)
+                    }}
                   />
                 </Grid>
-                
+                {/* FUNÇÃO */}
                 <FormControl 
                   variant="filled" 
                   required
@@ -321,7 +340,6 @@ function MediaCard(props) {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={functionPerson}
                     label="Funcao"
                     onChange={(e) => handleChange(e, 'funcao')}
                   >
@@ -336,29 +354,35 @@ function MediaCard(props) {
                 
 
                 {/* CEP */}
-                <Grid item xs={4} style={{paddingTop: 25}}>
+                <Grid item xs={4} style={{paddingTop: 24}}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     type="text" 
                     label="CEP" 
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                    onChange={(e) => setCep(e.target.value)}
+                    onChange={(e) => {
+                      setCep(e.target.value.replace(/\D/g, ''))
+                    }}
+                    
                   />
                 </Grid>
 
                 {/* ENDEREÇO */}
-                <Grid item xs={8} style={{paddingTop: 25}}>
+                <Grid item xs={8} style={{paddingTop: 24}}>
                   <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
                     type="text" 
                     label="Endereço" 
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                    onChange={(e) => setAdress(e.target.value)}
+                    onChange={(e) => {
+                      setAdress(e.target.value)
+                    }}
+                    
                   />
                 </Grid>
-
+                {/* ESTADO */}    
                 <FormControl 
                   variant="filled" 
                   sx={{ marginTop: 1, 
@@ -410,9 +434,12 @@ function MediaCard(props) {
                     type="text" 
                     label="Bairro" 
                     variant="filled" 
+                    value={district}
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                    onChange={(e) => setDistrict(e.target.value)}
+                    onChange={(e) => {
+                      setDistrict(e.target.value)
+                    }}
                   />
                 </Grid>
 
@@ -424,31 +451,48 @@ function MediaCard(props) {
                     variant="filled" 
                     InputProps={{ disableUnderline: true }}
                     fullWidth 
-                    onChange={(e) => setCidade(e.target.value)}
+                    onChange={(e) => {
+                      setCidade(e.target.value)
+                    }}
                   />
                 </Grid>
 
-                {/* TELEFONE  */}
+                {/* TELEFONE  
+                InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldTelefone }}
+                */}
                 <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="Telefone" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldTelefone }}
-                    fullWidth 
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
+                  <FormControl variant="filled" fullWidth sx={{backgroundColor: '#ececec', height: 56}}>
+                    <InputLabel 
+                      htmlFor="formatted-text-mask-input" 
+                      style={{ color: '#094e6f', fontWeight: 600 }}
+                    >
+                      Telefone
+                    </InputLabel>
+                    <Input
+                      value={values.textmask}
+                      onChange={handleChangeCelular}
+                      name="textmask"
+                      id="formatted-text-mask-input"
+                      inputComponent={TextMaskCustom}
+                      type="tel"
+                      variant="filled"
+                      sx={{height: 56, paddingLeft: 1.5}}
+                    />
+                  </FormControl>
                 </Grid>
 
                 {/* CELULAR */}
-                <Grid item xs={4}>
-                  <TextField InputLabelProps={{ style: { color: '#094e6f', fontWeight: 600} }}
-                    type="text" 
-                    label="Celular" 
-                    variant="filled" 
-                    InputProps={{ disableUnderline: true, inputComponent: CustomMaskFieldTelefone }}
-                    fullWidth 
-                    onChange={(e) => setCelular(e.target.value)}
+                <Grid item xs={4} >
+                  <TextField
+                    InputLabelProps={{style: { color: '#094e6f', fontWeight: 600 } }}
+                    type="text"
+                    label="Celular"
+                    variant="filled"
+                    InputProps={{ disableUnderline: true }}
+                    fullWidth
+                    onChange={(e) => {
+                      setCelular(e.target.value.replace(/\D/g, ''))
+                    }}
                   />
                 </Grid>
                 
@@ -460,22 +504,37 @@ function MediaCard(props) {
                     variant="contained"  
                     fullWidth
                     onClick={(e) => {
-                      if(verificarCampos(e) === true){
+                      //IF PARA EDIÇÃO
+                      console.log('verificarCampos: ', verificarCampos(e))
+                      console.log('TypeFunc: ', typeFunc)
+                      if(verificarCampos(e) === true && typeFunc){
                           e.preventDefault();
-                          handleSubmit(e);
-                      }                      
+                          console.log('Apertou no botão e o handle submit foi pra edição')
+                          handleSubmit(e); //era cadastrar()
+                      }else if(verificarCampos(e) === true){
+                        e.preventDefault();
+                        handleSubmit(e);
+                      }else{
+                        console.log('nem um nem outro')
+                      }        
                     }}
-                    >Cadastrar
+                    >{typeFunc ? "Editar" : "Cadastrar"}
                   </Button>
                 </Grid>
+
 
               </Grid>
             </form>
           </CardContent>
         </Card>
       </Grid>
+
+      <Success/>
+      
+
     </div>
-    </>
+    
+    
   );
 }
 

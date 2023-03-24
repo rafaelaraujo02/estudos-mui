@@ -17,10 +17,10 @@ function createData({nome, funcao, celular, email, acoes}) {
 //CONSTANTE TEMPORÁRIA PARA POPULAR TABELA
 const rows = [
     createData( {
-        nome:'Adalberto Francisco Monteiro Neto', 
+        nome:'Francisco Nascimento', 
         funcao:'Funcionário', 
         celular:'83 99999-9999', 
-        email:'adalberto@gmail.com',
+        email:'francisco@gmail.com',
         
         }   
     ),

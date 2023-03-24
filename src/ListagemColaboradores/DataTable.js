@@ -19,32 +19,10 @@ import styles from './DataTable.module.css';
 import { Link } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
 
-//CONTEXT
-import getListColaborators from '../services/localstorage';
 export default function DataTable({persona}) {
 
-  //TESTANDO LISTA PEGANDO DADOS DO LOCALSTORAGE
-  const [colaborators, setColaborators] = useState([])
-  useEffect(() => {
-    setColaborators(getListColaborators());
-  }, []);
-
-  //
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization");
-  myHeaders.append("Content-Type", "application/json");
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-  
-  useEffect(() => {
-    fetch("http://192.168.81.159:3000/person", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-  }, [])
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  console.log('dotenv: ', BASE_URL)
 
     //Recebe os dados do bd.json
     const [person, setPerson] = useState([]);
@@ -54,20 +32,16 @@ export default function DataTable({persona}) {
     let dataUserRow;
     let isClicked = false;
 
-    //Desestruturação do context
-    const [userContext, setUserContext] = useState();
-    //pegar o usuário da linha e fazer algo como setUserContext(person)
-
+  
     useEffect(() => {
-        fetch("http://localhost:5000/person", {
+        fetch(`${process.env.BASEURL}`, {
         method: "GET",
         headers: {
           'Content-Type': 'application/json'
         }
         })
         .then((resp => resp.json()))
-        .then((data) => {setPerson(data)}
-            )
+        .then((data) => {setPerson(data)})
         .catch(error => console.log(error))
       }, [])
       
