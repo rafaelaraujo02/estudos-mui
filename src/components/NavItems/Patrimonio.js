@@ -12,10 +12,12 @@ export default function Patrimonio(){
         <Container style={{textAlign: "center"}}>
             <h1>Em construção</h1>
             <img alt="Engrenagem" src={Engrenagem} width={400} ></img>
+            
             <button onClick={() => {
                 setShowAlert(true)
                 setMessage('Clicou no botão Alert')
             }}>Alert</button>
+            
             <button onClick={() => {
                 setShowSuccess(true)
                 setMessage('Clicou no botão Success')
