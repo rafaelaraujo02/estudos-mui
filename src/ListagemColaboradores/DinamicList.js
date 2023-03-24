@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Table from '@mui/material/Table'
 import { Button, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
@@ -45,10 +45,26 @@ const rows = [
 
 
 function Alunos(){
+    const [person, setPerson] = useState([])
 
+    useEffect(() => {
+        fetch("http://localhost:5000/person", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+        })
+        .then((resp => resp.json()))
+        .then((data) => {
+                            setPerson(data); 
+                            console.log(person)
+                        }
+            )
+        .catch(error => console.log(error))
+      }, [])
 
         return(
-          <TableContainer sx={{width: `calc(100% - 25%)`, minWidth: 900, margin: "25%", border: "none", marginTop: 5}}>
+          <TableContainer sx={{width: `calc(100% - 25%)`, minWidth: 900, margin: "25%", border: "none", marginTop: 5}} >
               {/* MARGIN DEFAULT: 25% 
               */}
               <SearchCollaborators />
@@ -56,7 +72,7 @@ function Alunos(){
                 
                 //rows[0].acoes = <ButtonList nome = {nome}/>
               }
-                <Table size="small" aria-label="a dense table" sx={{marginTop: 3}}>
+                <Table size="small" aria-label="a dense table" sx={{marginTop: 3}} >
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{color: "#094e6f", fontWeight: "bold", border: "none"}}>NOME</TableCell>
@@ -69,10 +85,11 @@ function Alunos(){
 
                     <TableBody>
                     
-                    {rows.map((row) => (
+                    {person.map((row) => (
                         <TableRow
                         key={row.nome}
                         sx={{'&:last-child td, &:last-child th': { border: 0 } }}
+                        
                         >
                         <TableCell sx={{color: "#094e6f", border: "none"}} component="th" scope="row">
                             {row.nome}

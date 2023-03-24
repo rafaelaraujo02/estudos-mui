@@ -6,9 +6,12 @@ import logo from '../assets/logo_nutes.jpg';
 
 function Form(){
 
-  function validarForm(e){
+  function ValidarForm(e){
     e.preventDefault();
-    alert('validar form')
+
+    
+  
+    alert('validar form', e)
   }
 
     return(
@@ -46,7 +49,7 @@ function Form(){
                         type="submit" 
                         variant="contained"  
                         fullWidth
-                        onClick={(e) => {validarForm(e)}}
+                        onClick={(e) => {ValidarForm(e)}}
                         >Submit
                       </Button>
                     </Grid>

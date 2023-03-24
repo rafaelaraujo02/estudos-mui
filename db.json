@@ -1,0 +1,34 @@
+{
+  "person": [
+    {
+      "id": 1,
+      "name": "rafael araujo dos santos monteiro",
+      "email": "rafael@teste.com",
+      "rg": "3.335.555",
+      "cpf": "333.222.777-66",
+      "profession": "estudante",
+      "functionPerson": "estagiário",
+      "cellphone": "83 93333-7766"
+    },
+    {
+      "id": 2,
+      "name": "renan gustavo da silva melo",
+      "email": "renan@teste.com",
+      "rg": "5.555.555",
+      "cpf": "111.222.777-66",
+      "profession": "estudante",
+      "functionPerson": "estagiário",
+      "cellphone": "83 98911-7766"
+    },
+    {
+      "id": 3,
+      "name": "jose teste",
+      "email": "jose@teste.com",
+      "rg": "2.444.555",
+      "cpf": "999.332.777-66",
+      "profession": "estudante",
+      "functionPerson": "estagiário",
+      "cellphone": "83 98688-7766"
+    }
+  ]
+}
